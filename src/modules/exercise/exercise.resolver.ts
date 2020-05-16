@@ -3,6 +3,8 @@ import { Exercise } from "./exercise.model";
 import { ContextType } from "src/types/ContexType";
 import { CreateExerciseInput } from "./inputs/createExercise.input";
 import { UpdateExerciseInut } from "./inputs/updateExercise.input";
+// import { ExerciseType } from "@prisma/client";
+// import exercises from "./seed/exercises.json";
 
 @Resolver(() => Exercise)
 export class ExerciseResolver {
@@ -23,6 +25,25 @@ export class ExerciseResolver {
     });
   }
 
+  // @Query(() => String)
+  // async seed(@Ctx() { prisma }: ContextType) {
+  //   const exercisesInserted = await Promise.all(
+  //     exercises.map(async (exercise) => {
+  //       return await prisma.exercise.create({
+  //         data: {
+  //           body_part: exercise.body_part,
+  //           name: exercise.name,
+  //           type: exercise.type as ExerciseType,
+  //           is_public: true,
+  //         },
+  //       });
+  //     })
+  //   );
+
+  //   console.log(exercisesInserted.length);
+  //   return "seeded";
+  // }
+
   @Authorized()
   @Mutation(() => Exercise)
   async insert_one_exercise(
@@ -42,7 +63,7 @@ export class ExerciseResolver {
   }
 
   @Authorized()
-  @Mutation(() => Exercise, { nullable: true })
+  @Mutation(() => String, { nullable: true })
   async delete_one_exercise(
     @Arg("id") id: string,
     @Ctx() { prisma, req }: ContextType
@@ -54,7 +75,9 @@ export class ExerciseResolver {
     });
 
     if (exercise && exercise?.userId === req.userId) {
-      return await prisma.exercise.delete({ where: { id: exercise?.id } });
+      await prisma.exercise.delete({ where: { id: exercise?.id } });
+
+      return exercise.id;
     }
 
     return null;

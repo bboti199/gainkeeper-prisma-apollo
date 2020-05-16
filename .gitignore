@@ -6,6 +6,7 @@ ormconfig.json
 serviceAccountKey.json
 exercises.json
 generated/
+seed/
 
 # Logs
 logs

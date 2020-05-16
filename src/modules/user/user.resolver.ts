@@ -12,6 +12,7 @@ import { User } from "./user.model";
 import { ContextType } from "src/types/ContexType";
 import { CreateUserInput } from "./inputs/createUser.input";
 import { Exercise } from "../exercise/exercise.model";
+import { Routine } from "../routine/routine.model";
 
 @Resolver(() => User)
 export class UserResolver {
@@ -54,5 +55,22 @@ export class UserResolver {
   @FieldResolver(() => [Exercise])
   async exercises(@Ctx() { prisma, req }: ContextType): Promise<Exercise[]> {
     return await prisma.user.findOne({ where: { id: req.userId } }).exercises();
+  }
+
+  @Authorized()
+  @FieldResolver(() => [Routine])
+  async routines(@Ctx() { prisma, req }: ContextType) {
+    return await prisma.routine.findMany({
+      where: {
+        userId: req.userId,
+      },
+      include: {
+        template: {
+          include: {
+            exercise: true,
+          },
+        },
+      },
+    });
   }
 }

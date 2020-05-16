@@ -16,7 +16,6 @@ export const firebaseAuthChecker: AuthChecker<ContextType> = async ({
       try {
         const decodedToken = await firebase.auth().verifyIdToken(token);
         const firebaseUser = await firebase.auth().getUser(decodedToken.uid);
-
         const localUser = await prisma.user.findOne({
           where: {
             fid: firebaseUser.uid,

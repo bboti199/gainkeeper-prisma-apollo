@@ -7,6 +7,7 @@ import { UserResolver } from "./modules/user/user.resolver";
 import { ExerciseResolver } from "./modules/exercise/exercise.resolver";
 import { config } from "dotenv";
 import { firebaseAuthChecker } from "./firebase/authChecker";
+import { RoutineResolver } from "./modules/routine/routine.resolver";
 
 const prisma = new PrismaClient();
 config();
@@ -15,7 +16,7 @@ const main = async () => {
   const apolloServer = new ApolloServer({
     context: ({ req }) => ({ prisma, req }),
     schema: await buildSchema({
-      resolvers: [UserResolver, ExerciseResolver],
+      resolvers: [UserResolver, ExerciseResolver, RoutineResolver],
       authChecker: firebaseAuthChecker,
     }),
   });
