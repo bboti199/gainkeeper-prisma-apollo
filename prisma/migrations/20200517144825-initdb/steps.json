@@ -519,7 +519,7 @@
       "model": "Routine",
       "field": "user",
       "type": "User",
-      "arity": "Required"
+      "arity": "Optional"
     },
     {
       "tag": "CreateDirective",
@@ -565,7 +565,7 @@
       "model": "Routine",
       "field": "userId",
       "type": "String",
-      "arity": "Required"
+      "arity": "Optional"
     },
     {
       "tag": "CreateModel",
@@ -633,7 +633,7 @@
       "model": "RoutineTemplate",
       "field": "routine",
       "type": "Routine",
-      "arity": "Required"
+      "arity": "Optional"
     },
     {
       "tag": "CreateDirective",
@@ -679,7 +679,7 @@
       "model": "RoutineTemplate",
       "field": "routineId",
       "type": "String",
-      "arity": "Required"
+      "arity": "Optional"
     },
     {
       "tag": "CreateField",
@@ -786,7 +786,7 @@
       "model": "WorkoutLog",
       "field": "routine",
       "type": "Routine",
-      "arity": "Required"
+      "arity": "Optional"
     },
     {
       "tag": "CreateDirective",
@@ -832,7 +832,7 @@
       "model": "WorkoutLog",
       "field": "routineId",
       "type": "String",
-      "arity": "Required"
+      "arity": "Optional"
     },
     {
       "tag": "CreateField",
@@ -999,7 +999,7 @@
       "model": "WorkoutLogItem",
       "field": "workoutLog",
       "type": "WorkoutLog",
-      "arity": "Required"
+      "arity": "Optional"
     },
     {
       "tag": "CreateDirective",
@@ -1045,7 +1045,7 @@
       "model": "WorkoutLogItem",
       "field": "workoutLogId",
       "type": "String",
-      "arity": "Required"
+      "arity": "Optional"
     },
     {
       "tag": "CreateField",

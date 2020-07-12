@@ -1,5 +1,5 @@
 import { ObjectType, ID, Field } from "type-graphql";
-import { Exercise } from "../exercise/exercise.model";
+import { Exercise } from "../../exercise/models/exercise.model";
 
 @ObjectType()
 export class RoutineTemplate {

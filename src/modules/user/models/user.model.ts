@@ -1,6 +1,6 @@
 import { ObjectType, Field, ID, registerEnumType } from "type-graphql";
 import { UserRole } from "@prisma/client";
-import { Exercise } from "../exercise/exercise.model";
+import { Exercise } from "../../exercise/models/exercise.model";
 
 registerEnumType(UserRole, { name: "UserRole" });
 

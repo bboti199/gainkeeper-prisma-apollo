@@ -8,11 +8,11 @@ import {
   Root,
   Authorized,
 } from "type-graphql";
-import { User } from "./user.model";
+import { User } from "./models/user.model";
 import { ContextType } from "src/types/ContexType";
 import { CreateUserInput } from "./inputs/createUser.input";
-import { Exercise } from "../exercise/exercise.model";
-import { Routine } from "../routine/routine.model";
+import { Exercise } from "../exercise/models/exercise.model";
+import { Routine } from "../routine/models/routine.model";
 
 @Resolver(() => User)
 export class UserResolver {

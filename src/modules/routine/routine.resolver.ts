@@ -1,9 +1,19 @@
-import { Resolver, Query, Ctx, Authorized, Mutation, Arg } from "type-graphql";
-import { Routine } from "./routine.model";
+import {
+  Resolver,
+  Query,
+  Ctx,
+  Authorized,
+  Mutation,
+  Arg,
+  FieldResolver,
+  Root,
+} from "type-graphql";
+import { Routine } from "./models/routine.model";
 import { ContextType } from "src/types/ContexType";
 import { CreateRoutineInput } from "./inputs/createRoutine.input";
-import { Exercise } from "../exercise/exercise.model";
+import { Exercise } from "../exercise/models/exercise.model";
 import { UpdateRoutineInput } from "./inputs/updateRoutine.input";
+import { WorkoutLog } from "../workoutlog/models/workoutlog.model";
 
 @Resolver(() => Routine)
 export class RoutineResolver {
@@ -102,11 +112,6 @@ export class RoutineResolver {
     });
 
     if (routine && routine?.userId === req.userId) {
-      await prisma.routineTemplate.deleteMany({
-        where: {
-          routineId: routine.id,
-        },
-      });
       await prisma.routine.delete({
         where: { id },
       });
@@ -147,5 +152,28 @@ export class RoutineResolver {
     }
 
     return null;
+  }
+
+  @Authorized()
+  @FieldResolver(() => [WorkoutLog])
+  async history(@Root() root: Routine, @Ctx() { prisma, req }: ContextType) {
+    const routine = await prisma.routine.findOne({ where: { id: root.id } });
+
+    if (routine && routine.userId === req.userId) {
+      return await prisma.workoutLog.findMany({
+        where: {
+          routineId: routine.id,
+        },
+        include: {
+          items: {
+            include: {
+              exercise: true,
+            },
+          },
+        },
+      });
+    }
+
+    return [];
   }
 }
